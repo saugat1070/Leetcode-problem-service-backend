@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 import { title } from "node:process";
 
-enum EProblemDifficulty {
+export enum EProblemDifficulty {
     Hard = "hard",
     Medium = "medium",
     Easy = "easy"
 }
 
-interface ITestcase {
+export interface ITestcase {
     input : string,
     output: string
 }
 
-interface IProblem extends mongoose.Document {
+export interface IProblem extends mongoose.Document {
     title : string;
     description : string;
     difficulty: EProblemDifficulty,
