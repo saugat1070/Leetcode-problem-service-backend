@@ -1,8 +1,8 @@
 import { Router } from "express";
 import ProblemController from "../../Controllers/problem.controller";
 import { ProblemService } from "../../Services/problem.service";
-import { validateRequestBody } from "../../validator";
-import { createProblemSchema } from "../../validator/problem.validator";
+import { validateRequestBody, validateRequestQuery } from "../../validator";
+import { createProblemSchema, findByDifficultySchema, searchParamsSchema } from "../../validator/problem.validator";
 import { ProblemRepository } from "../../repositories/problem.repositories";
 
 const problemRouter: Router = Router();
@@ -25,9 +25,9 @@ problemRouter.route("/:id")
     .delete(instanceProblemController.deleteProblem.bind(instanceProblemController)) // route to delete problem
 
 problemRouter.route("/difficulty")
-    .get(instanceProblemController.findByDifficulty.bind(instanceProblemController)) // route to find problems by difficulty
+    .get(validateRequestQuery(findByDifficultySchema),instanceProblemController.findByDifficulty.bind(instanceProblemController)) // route to find problems by difficulty
 
 problemRouter.route("/search")
-    .get(instanceProblemController.searchParams.bind(instanceProblemController)) // route to search problems by query
+    .get(validateRequestQuery(searchParamsSchema),instanceProblemController.searchParams.bind(instanceProblemController)) // route to search problems by query
 
 export default problemRouter;

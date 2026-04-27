@@ -23,5 +23,13 @@ export const updateProblemSchema = z.object({
     })).optional()
 })
 
+export const findByDifficultySchema = z.object({
+    difficulty: z.enum(Object.values(EProblemDifficulty))
+})
+
+export const searchParamsSchema = z.object({
+    query: z.string().min(1)
+})
+
 export type CreateProblemDto = z.infer<typeof createProblemSchema>;
 export type UpdateProblemDto = z.infer<typeof updateProblemSchema>;

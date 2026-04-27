@@ -1,10 +1,14 @@
 import express, { NextFunction } from "express";
 import { AppError } from "./utils/error/app.error";
 import { cpuUsage } from "node:process";
+import v1Router from "./Routers/v1";
 
 const app: express.Application = express();
 
-app.get("/health", (_req, res) => {
+app.use(express.json());
+
+
+app.get("api/v1/health", (_req, res) => {
   return res.status(200).json({
     message: "API is healthy",
     cpuUsage: cpuUsage(),
@@ -12,6 +16,9 @@ app.get("/health", (_req, res) => {
     timeStamp: new Date().toISOString(),
   });
 });
+
+// Routes
+app.use("/api/v1",v1Router);
 
 app.use((error:AppError,req:express.Request,res:express.Response,next:NextFunction)=>{
     console.log(error);

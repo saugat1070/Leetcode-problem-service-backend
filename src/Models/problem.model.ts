@@ -68,7 +68,6 @@ const problemSchema = new mongoose.Schema<IProblem>({
 });
 
 // indexing
-problemSchema.index({title:1});
 problemSchema.index({difficulty:1});
 
 
